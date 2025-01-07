@@ -81,18 +81,19 @@ app.post("/api/v1/user/signup", async (req, res) => {
       process.env.JWT_SECRET
     );
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "None",
-      maxAge: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-    });
-
-    return res.status(200).json({
-      success: true,
-      message: "User Registered Successfully",
-      data: user,
-    });
+    res
+      .cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "none",
+        maxAge: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+      })
+      .status(200)
+      .json({
+        success: true,
+        message: "User Registered Successfully",
+        data: user,
+      });
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -155,18 +156,19 @@ app.post("/api/v1/user/signin", async (req, res) => {
 
     user.password = undefined;
 
-    res.cookie("token", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "None",
-      maxAge: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-    });
-
-    return res.status(200).json({
-      success: true,
-      message: "User Registered Successfully",
-      data: user,
-    });
+    res
+      .cookie("token", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "none",
+        maxAge: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+      })
+      .status(200)
+      .json({
+        success: true,
+        message: "User Registered Successfully",
+        data: user,
+      });
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -217,16 +219,11 @@ app.get("/api/v1/user/userDetails", auth, async (req, res) => {
   }
 });
 
-app.post("/api/v1/user/logout", auth, (req, res) => {
+app.post("/api/v1/user/logout", (req, res) => {
   try {
-    res.cookie("token", null, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "None",
-      maxAge: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-    });
+    res.clearCookie("token");
     return res.status(200).json({
-      succcess: false,
+      succcess: true,
       message: "Logout Successfull",
     });
   } catch (error) {
