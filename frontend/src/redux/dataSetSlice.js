@@ -2,13 +2,15 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const dataSetSlice = createSlice({
   name: "dataSet",
-  initialState: null,
+  initialState: {
+    data: [],
+  },
   reducers: {
     addDataSet: (state, action) => {
-      state = action.payload;
+      state.data = action.payload;
     },
-    removeDataSet: () => {
-      return null;
+    removeDataSet: (state) => {
+      state.data = [];
     },
   },
 });
