@@ -85,8 +85,8 @@ app.post("/api/v1/user/signup", async (req, res) => {
       .cookie("token", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "none",
-        maxAge: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
       })
       .status(200)
       .json({
@@ -139,7 +139,7 @@ app.post("/api/v1/user/signin", async (req, res) => {
       });
     }
 
-    const isPasswordCorrect = bcrypt.compare(password, user.password);
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
     console.log(isPasswordCorrect);
 
     if (!isPasswordCorrect) {
@@ -160,8 +160,8 @@ app.post("/api/v1/user/signin", async (req, res) => {
       .cookie("token", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "none",
-        maxAge: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
       })
       .status(200)
       .json({
