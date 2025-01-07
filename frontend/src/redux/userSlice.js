@@ -13,7 +13,7 @@ const userSlice = createSlice({
     addToken: (state, action) => {
       state.token = action.payload;
     },
-    removeUser: (state, action) => {
+    removeUser: (state) => {
       (state.user = null), (state.token = null);
     },
   },

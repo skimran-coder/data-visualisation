@@ -3,13 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { addToken, addUser, removeUser } from "../redux/userSlice";
 import { useNavigate } from "react-router-dom";
-import useCookie from "../hooks/useCookie";
 
 const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 const Navbar = () => {
   const user = useSelector((store) => store.user.user);
-  const token = useCookie("token");
+  console.log(user)
 
   const navigate = useNavigate();
 
@@ -41,16 +40,7 @@ const Navbar = () => {
     }
   };
 
-  useEffect(() => {
-    if (!token) {
-      console.log("token not found navigating to login");
-      navigate("/login");
-    } else {
-      console.log("token  found fetch user and dispatch addToken");
-      dispatch(addToken(token));
-      fetchUser();
-    }
-  }, [token]);
+ 
 
   return (
     <nav className="flex justify-between min-w-[100vw] h-[8vh] shadow-md py-4 px-2">

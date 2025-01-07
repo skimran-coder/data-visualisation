@@ -5,9 +5,9 @@ const dataSetSlice = createSlice({
   initialState: null,
   reducers: {
     addDataSet: (state, action) => {
-      return action.payload;
+      state = action.payload;
     },
-    removeDataSet: (state, action) => {
+    removeDataSet: () => {
       return null;
     },
   },

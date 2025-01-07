@@ -16,7 +16,6 @@ import {
 import zoomPlugin from "chartjs-plugin-zoom";
 import "chartjs-adapter-date-fns";
 import { useSelector } from "react-redux";
-import useCookie from "../hooks/useCookie";
 
 Chart.register(
   CategoryScale,
@@ -36,16 +35,21 @@ const BarAndLineChart = ({ data, filterOption, isSharedDashboard }) => {
   const user = useSelector((store) => store?.user?.user);
   const [selectedFeature, setSelectedFeature] = useState(null);
 
-  const filterInitialState = useCookie("filterPref")
-    ? JSON.parse(useCookie("filterPref"))
-    : {
-        age: "All",
-        gender: "All",
-        startDate: "",
-        endDate: "",
-      };
+  // const filterInitialState = useCookie("filterPref")
+  //   ? JSON.parse(useCookie("filterPref"))
+  //   : {
+  //       age: "All",
+  //       gender: "All",
+  //       startDate: "",
+  //       endDate: "",
+  //     };
 
-  const [filters, setFilters] = useState(filterInitialState);
+  const [filters, setFilters] = useState({
+    age: "All",
+    gender: "All",
+    startDate: "",
+    endDate: "",
+  });
 
   useEffect(() => {
     if (filterOption) {
